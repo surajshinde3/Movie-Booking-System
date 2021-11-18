@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+<meta charset="UTF-8">
+<title>Ticket Booking</title>
+<link rel="stylesheet"
+	href="https://bootswatch.com/4/cosmo/bootstrap.css" media="screen">
+
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary"
+		style="margin-bottom: 20px">
+		<a class="navbar-brand text-white" href="/"
+			style="font-family: serif; font-size: xx-large;">PVRCinemas.COM</a>
+
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarColor02" aria-controls="navbarColor02"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarColor02">
+			<ul class="navbar-nav mr-auto">
+
+				<th:block sec:authorize="hasRole('ROLE_USER')">
+					<li class="nav-item"><a class="nav-link" href="/">Home </a></li>
+					<li class="nav-item"><a class="nav-link" href="/home">Search
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="/bookTicket">Movies</a></li>
+
+					<li class="nav-item"><a class="nav-link" href="/bookedTickets">Booked
+							Tickets</a></li>
+
+					<li class="nav-item"><a class="nav-link"
+						href="/cancelledTickets">Cancelled Tickets</a></li>
+
+				</th:block>
+				<th:block sec:authorize="hasRole('ROLE_ADMIN')">
+					<li class="nav-item"><a class="nav-link" href="/">Home </a></li>
+					<li class="nav-item"><a class="nav-link" href="/newMovie">New
+							Movie</a></li>
+					<li class="nav-item"><a class="nav-link" href="/viewMovies">Active
+							Movies</a></li>
+					<li class="nav-item"><a class="nav-link" href="/deletedMovies">Deleted
+							Movies</a></li>
+				</th:block>
+			</ul>
+			<div sec:authorize="isAuthenticated()">
+				<span style="color: white">Welcome </span> <span
+					style="color: white; font-weight: bold; font-size: large;"
+					sec:authentication="principal.username"></span>&nbsp; <a
+					href="/logout">
+					<button class="btn btn-secondary my-2 my-sm-0" type="submit">Logout</button>
+				</a>
+			</div>
+
+			<div sec:authorize="!isAuthenticated()">
+				<a class="btn btn-warning my-2 my-sm-0" type="submit"
+					href="/getregister">Register</a>&nbsp;&nbsp;&nbsp;
+			</div>
+			<div sec:authorize="!isAuthenticated()">
+				<a class="btn btn-success my-2 my-sm-0" type="submit" href="/login">Login</a>
+			</div>
+
+		</div>
+	</nav>
+	<div class="container">
+		<th:block layout:fragment="content"></th:block>
+	</div>
+
+</body>
+</html>

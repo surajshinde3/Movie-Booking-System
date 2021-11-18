@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/master-page}">
+<head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		var dtToday = new Date();
+
+		var month = dtToday.getMonth() + 1;
+		var day = dtToday.getDate();
+		var year = dtToday.getFullYear();
+		if (month < 10)
+			month = '0' + month.toString();
+		if (day < 10)
+			day = '0' + day.toString();
+
+		var maxDate = year + '-' + month + '-' + day;
+		$('#txtDate').attr('min', maxDate);
+	});
+</script>
+</head>
+
+<body>
+	<th:block layout:fragment="content">
+		<div class="row">
+			<div class="col-md-12" style="margin-bottom: 10px">
+				<h1 style="color: darkblue">Edit Movie Information :</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="card">
+					<div class="card-body">
+						<form action="/movie/edit" method="post" th:object="${movie}">
+							<div class="row">
+								<input type=hidden name="movieId" th:value="${movie.movieId}">
+								<div class="form-group col-md-4">
+									<label class="col-form-label" for="movieName">Movie
+										Name</label> <span class="badge badge-danger"></span> <input
+										type="text" class="form-control" placeholder="" id="movieName"
+										name="movieName" th:value="${movie.movieName}" required>
+								</div>
+
+								<div class="form-group col-md-4">
+									<label class="col-form-label" for="date">Movie Date</label> <span
+										class="badge badge-danger"></span> <input type="date"
+										class="form-control" id="txtDate" name="date"
+										th:value="${movie.date}" required>
+								</div>
+								<div class="form-group col-md-4">
+									<label class="col-form-label" for="time">Show Time</label> <span
+										class="badge badge-danger"></span> <input type="time"
+										class="form-control" id="time" name="time"
+										th:value="${movie.time}">
+								</div>
+
+								<div class="form-group col-md-4">
+									<label class="col-form-label" for="screen">Movie Screen</label>
+									<span class="badge badge-danger"></span> <select path="screen"
+										class="form-control" id="screen" name="screen">
+										<option th:value="${movie.screen}" th:label="${movie.screen}" />
+										<option value="Screen 1" label="Screen 1" />
+										<option value="Screen 2" label="Screen 2" />
+										<option value="Screen 3" label="Screen 3" />
+									</select>
+								</div>
+
+								<div class="form-group col-md-4">
+									<label class="col-form-label" for="quality">Movie
+										Quality</label> <span class="badge badge-danger"></span> <select
+										path="quality" class="form-control" id="quality"
+										name="quality" th:value="${movie.quality}">
+										<option th:value="${movie.quality}"
+											th:label="${movie.quality}" />
+										<option value="2D" label="2D" />
+										<option value="3D" label="3D" />
+									</select>
+								</div>
+								<div class="form-group col-md-4">
+									<label class="col-form-label" for="language">Movie
+										Language</label> <select path="language" class="form-control"
+										id="language" name="language" th:value="${movie.language}">
+										<option th:value="${movie.language}"
+											th:label="${movie.language}" />
+										<option value="Hindi" label="Hindi" />
+										<option value="Marathi" label="Marathi" />
+										<option value="English" label="English" />
+										<option value="Telugu" label="Telugu" />
+									</select>
+								</div>
+								<div class="form-group col-md-4">
+									<label class="col-form-label" for="type">Movie Type</label> <select
+										path="type" class="form-control" id="type" name="type"
+										th:value="${movie.type}">
+										<option th:value="${movie.type}" th:label="${movie.type}" />
+										<option value="Action" label="Action" />
+										<option value="Comedy" label="Comedy" />
+										<option value="Drama" label="Drama" />
+										<option value="Adventure" label="Adventure" />
+										<option value="Fantacy" label="Fantacy" />
+										<option value="Social" label="Social" />
+									</select>
+								</div>
+
+								<div class="form-group col-md-4">
+									<label class="col-form-label" for="price">Ticket Price</label>
+									<input type="text" class="form-control" placeholder=""
+										id="price" name="price" th:value="${movie.price}" required>
+								</div>
+								<div class="form-group col-md-4">
+									<label class="col-form-label" for="seats">Seats</label> <input
+										type="text" class="form-control" placeholder="" id="seats"
+										name="seats" th:value="${movie.seats}" required>
+								</div>
+								<div class="form-group col-md-4">
+									<label class="col-form-label" for="duration">Duration(In
+										Minutes)</label> <input type="text" class="form-control"
+										placeholder="" id="duration" name="duration"
+										th:value="${movie.duration}" required>
+								</div>
+
+								<div class="form-group col-12">
+									<button type="submit" class="btn btn-success"
+										style="float: right"
+										onclick="alert('Are you sure to Save this Movie?')">Save</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</th:block>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/master-page}">
+<meta charset="UTF-8">
+<title>Customers</title>
+</head>
+<body>
+	<th:block layout:fragment="content">
+
+		<h1 class="text-center">Ticket</h1>
+		<hr>
+		<div class="container mt-2">
+			<div class="d-flex justify-content-center row">
+				<div class="col-md-10">
+					<div class="receipt bg-white p-3 rounded">
+						<h3 class="name">
+							Hello
+							<td th:text="${customer.firstName}"></td>
+						</h3>
+						<hr>
+						<div
+							class="d-flex flex-row justify-content-between align-items-center order-details">
+							<div>
+								<span class="d-block fs-12">Movie Name</span><span
+									class="font-weight-bold"><td
+									th:text="${customer.movie.movieName}"></td></span>
+							</div>
+							<div>
+								<span class="d-block fs-12">Movie Date</span><span
+									class="font-weight-bold"><td
+									th:text="${customer.movie.date}"></td></span>
+							</div>
+							<div>
+								<span class="d-block fs-12">Duration (In Minutes)</span><span
+									class="font-weight-bold"><td
+									th:text="${customer.movie.duration}"></td></span>
+							</div>
+							<div>
+								<span class="d-block fs-12">Time</span><span
+									class="font-weight-bold"><td
+									th:text="${customer.movie.time}"></td></span>
+							</div>
+						</div>
+						<hr>
+
+
+						<div class="mt-10 amount row">
+
+							<div class="col-md-12">
+								<div class="billing">
+									<div class="d-flex justify-content-between">
+										<span>Movie Quality</span><span class="font-weight-bold"><td
+											th:text="${customer.movie.quality}"></td></span>
+									</div>
+									<div class="d-flex justify-content-between mt-2">
+										<span>Movie Type</span><span class="font-weight-bold"><td
+											th:text="${customer.movie.type}"></td></span>
+									</div>
+									<div class="d-flex justify-content-between mt-2">
+										<span>Screen</span><span class="font-weight-bold"><td
+											th:text="${customer.movie.screen}"></td></span>
+									</div>
+									<hr>
+									<div class="d-flex justify-content-between mt-1">
+										<span class="font-weight-bold">Ticket Price</span><span
+											class="font-weight-bold text-success"> Rs.
+											<td th:text="${customer.movie.price}"></td>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<hr>
+						<div
+							class="d-flex justify-content-between align-items-center footer">
+							<div class="thanks">
+								<span class="d-block font-weight-bold">Thanks for Booking</span>
+							</div>
+							<div
+								class="d-flex flex-column justify-content-end align-items-end">
+								<span class="d-block font-weight-bold">Need Help?</span><span>Call
+									- 9988776655</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<h5 class="text-danger text-center d-block ">
+			Wan't to cancel ticket? <a
+				th:href="@{/cancelTicket(customerId=${customer.customerId})}"><button
+					type="button" class="btn btn-danger btn-sm"
+					onclick="alert('Are you sure to cancel this Ticket?')">Cancel</button></a>
+		</h5>
+
+	</th:block>
+</body>
+</html>

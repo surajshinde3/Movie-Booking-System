@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/master-page}">
+<meta charset="UTF-8">
+<title>Customers</title>
+</head>
+<body>
+	<th:block layout:fragment="content">
+		<div class="row" style="margin-bottom: 10px">
+			<div class="col-md-12">
+				<h1 style="color: darkblue">
+					Customers List for Movie <span th:text="${movie.movieName}"></span>
+				</h1>
+			</div>
+
+		</div>
+		<table class="table table-sm">
+			<thead>
+				<tr class="table-active">
+					<th scope="col">First Name</th>
+					<th scope="col">Last Name</th>
+					<th scope="col">Phone Number</th>
+					<th scope="col">Email</th>
+					<th scope="col">Date</th>
+					<th scope="col">Time</th>
+					<th scope="col">Duration</th>
+					<th scope="col">Quality</th>
+					<th scope="col">Type</th>
+					<th scope="col">Screen</th>
+					<th scope="col">Language</th>
+
+
+				</tr>
+			</thead>
+			<tbody>
+				<div th:each="customer, iterStat:${customers}">
+					<tr style="background-color: #fdfdfd">
+						<td th:text="${customer.firstName}"></td>
+						<td th:text="${customer.lastName}"></td>
+						<td th:text="${customer.phoneNumber}"></td>
+						<td th:text="${customer.email}"></td>
+						<td th:text="${customer.movie.date}"></td>
+						<td th:text="${customer.movie.time}"></td>
+						<td th:text="${customer.movie.duration}"></td>
+						<td th:text="${customer.movie.quality}"></td>
+						<td th:text="${customer.movie.type}"></td>
+						<td th:text="${customer.movie.screen}"></td>
+						<td th:text="${customer.movie.language}"></td>
+
+					</tr>
+				</div>
+			</tbody>
+		</table>
+
+	</th:block>
+</body>
+</html>

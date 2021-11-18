@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/master-page}">
+
+<body>
+	<th:block layout:fragment="content">
+
+		<h1 style="text-align: center; color: maroon; font-style: oblique;">Welcome
+			to Movie Ticket Booking Website!</h1>
+		<hr>
+
+		<div class="row">
+			<div class="col">
+				<div class="row">
+					<div class="col">
+						<h2 style="text-align: center; color: teal;">You can perform
+							following operations!</h2>
+						<br>
+					</div>
+				</div>
+
+				<th:block sec:authorize="hasRole('ROLE_ADMIN')">
+					<div class="row">
+						<div class="col" style="text-align: center;">
+							<a class="btn btn-outline-success my-2 my-sm-0" href="/newMovie">New
+								Movie</a>&nbsp;&nbsp;&nbsp; <a
+								class="btn btn-outline-info my-2 my-sm-0" href="/viewMovies">View
+								Movies</a>&nbsp;&nbsp;&nbsp; <a
+								class="btn btn-outline-danger my-2 my-sm-0"
+								href="/deletedMovies">View Deleted Movies</a>&nbsp;&nbsp;&nbsp;
+
+						</div>
+					</div>
+				</th:block>
+				<th:block sec:authorize="hasRole('ROLE_USER')">
+					<div class="row">
+						<div class="col" style="text-align: center;">
+							<a class="btn btn-outline-primary my-2 my-sm-0" href="/home">Search</a>&nbsp;&nbsp;&nbsp;
+							<a class="btn btn-outline-info my-2 my-sm-0" href="/bookTicket">Book
+								Ticket</a>&nbsp;&nbsp;&nbsp; <a
+								class="btn btn-outline-success my-2 my-sm-0"
+								href="/bookedTickets">View Booked Tickets</a>&nbsp;&nbsp;&nbsp;
+
+							<a class="btn btn-outline-danger my-2 my-sm-0"
+								href="/cancelledTickets">View Cancelled Tickets</a>&nbsp;&nbsp;&nbsp;
+
+						</div>
+					</div>
+				</th:block>
+				<hr>
+			</div>
+
+		</div>
+
+	</th:block>
+</body>
+</html>
