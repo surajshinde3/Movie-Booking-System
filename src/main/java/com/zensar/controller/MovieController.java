@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,10 +12,12 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.text.DateFormatter;
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -88,7 +91,7 @@ public class MovieController {
 			String time = m.getTime();
 
 			try {
-				final SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
+				final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 				final Date dateObj = sdf.parse(time);
 				String newTime = new SimpleDateFormat("hh:mm a").format(dateObj);
 				m.setTime(newTime);
@@ -103,7 +106,7 @@ public class MovieController {
 	public String singleTimeConvert(String time) {
 		String newTime = null;
 		try {
-			final SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
+			final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 			final Date dateObj = sdf.parse(time);
 			newTime = new SimpleDateFormat("hh:mm a").format(dateObj);
 		} catch (final ParseException e) {
@@ -113,7 +116,7 @@ public class MovieController {
 	}
 
 	@GetMapping("/viewMovies")
-	public String viewMovie(Model model) {
+	public String viewMovies(Model model) {
 
 		List<Movie> movies = timeConvert(service.getAllMovies());
 
@@ -347,33 +350,76 @@ public class MovieController {
 		User user = uservice.findByUsername(principal.getName());
 		List<Customer> customers = user.getCustomers();
 		List<Customer> customerBooked = new ArrayList<Customer>();
+		List<Customer> customerActive = new ArrayList<Customer>();
 
 		for (Customer c : customers) {
 
 			if (!c.isCancelled()) {
 				customerBooked.add(c);
 			}
-
 		}
-		model.addAttribute("customers", customerBooked);
+
+		for (Customer c : customerBooked) {
+			Movie movie = c.getMovie();
+			LocalDate date = movie.getDate();
+			String time = movie.getTime();
+
+			String movieDateTime = date + " " + time;
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+			LocalDateTime mdateTime = LocalDateTime.parse(movieDateTime, formatter);
+
+			LocalDateTime date1 = LocalDateTime.now();
+
+			LocalDateTime date2 = LocalDateTime.of(mdateTime.getYear(), mdateTime.getMonthValue(),
+					mdateTime.getDayOfMonth(), mdateTime.getHour(), mdateTime.getMinute());
+
+			if (date2.isAfter(date1)) {
+				customerActive.add(c);
+			}
+		}
+		model.addAttribute("customers", customerActive);
 
 		List<Movie> movies = timeConvert(service.getAllMovies());
-		Collections.sort(movies, new Comparator<Movie>() {
-			public int compare(Movie o1, Movie o2) {
-				return o2.getDate().compareTo(o1.getDate());
-			}
-		});
+
 		model.addAttribute("movies", movies);
 
 		return "bookedTicket";
 	}
 
-	@GetMapping("/viewBookedTicket")
-	public String viewBookedTicket(@RequestParam Long customerId, Model model, Principal principal) {
+	@GetMapping("/completed")
+	public String completedTickets(Model model, Principal principal) {
 
 		User user = uservice.findByUsername(principal.getName());
 		List<Customer> customers = user.getCustomers();
-		model.addAttribute("customers", customers);
+		List<Customer> customerBooked = new ArrayList<Customer>();
+		List<Customer> customerCompleted = new ArrayList<Customer>();
+
+		for (Customer c : customers) {
+
+			if (!c.isCancelled()) {
+				customerBooked.add(c);
+			}
+		}
+
+		for (Customer c : customerBooked) {
+			Movie movie = c.getMovie();
+			LocalDate date = movie.getDate();
+			String time = movie.getTime();
+
+			String movieDateTime = date + " " + time;
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+			LocalDateTime mdateTime = LocalDateTime.parse(movieDateTime, formatter);
+
+			LocalDateTime date1 = LocalDateTime.now();
+
+			LocalDateTime date2 = LocalDateTime.of(mdateTime.getYear(), mdateTime.getMonthValue(),
+					mdateTime.getDayOfMonth(), mdateTime.getHour(), mdateTime.getMinute());
+
+			if (date1.isAfter(date2)) {
+				customerCompleted.add(c);
+			}
+		}
+		model.addAttribute("customers", customerCompleted);
 
 		List<Movie> movies = timeConvert(service.getAllMovies());
 		Collections.sort(movies, new Comparator<Movie>() {
@@ -381,10 +427,42 @@ public class MovieController {
 				return o2.getDate().compareTo(o1.getDate());
 			}
 		});
+
 		model.addAttribute("movies", movies);
 
-		Customer customer = cservice.getCustomerById(customerId);
+		return "completed";
+	}
 
+	@GetMapping("/viewBookedTicket")
+	public String viewBookedTicket(@RequestParam Long customerId, Model model, Principal principal) {
+
+		Customer customer = cservice.getCustomerById(customerId);
+		Movie movie = customer.getMovie();
+
+		String convert = singleTimeConvert(movie.getTime());
+
+		LocalDate date = movie.getDate();
+		String time = movie.getTime();
+
+		String movieDateTime = date + " " + time;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		LocalDateTime mdateTime = LocalDateTime.parse(movieDateTime, formatter);
+
+		LocalDateTime date1 = LocalDateTime.now();
+
+		LocalDateTime date2 = LocalDateTime.of(mdateTime.getYear(), mdateTime.getMonthValue(),
+				mdateTime.getDayOfMonth(), mdateTime.getHour() - 2, mdateTime.getMinute());
+
+		boolean flag = false;
+
+		if (date2.isAfter(date1)) {
+			flag = true;
+
+		}
+		model.addAttribute("flag", flag);
+
+		movie.setTime(convert);
+		customer.setMovie(movie);
 		model.addAttribute("customer", customer);
 		return "viewBookedTicket";
 	}
@@ -449,6 +527,12 @@ public class MovieController {
 
 		model.addAttribute("moviess", moviess);
 		return "deletedMovies";
+	}
+	
+	@GetMapping("/error")
+	public String error() {
+		return "error";
+
 	}
 
 }

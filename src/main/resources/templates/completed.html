@@ -9,7 +9,7 @@
 	<th:block layout:fragment="content">
 		<div class="row">
 			<div class="col-md-6">
-				<h1 style="color: darkblue">Cancelled Tickets</h1>
+				<h1 style="color: darkblue">Completed Movies</h1>
 			</div>
 		</div>
 		<div class="row">
@@ -20,8 +20,11 @@
 						Hello,
 						<td th:text="${customer.firstName}"></td>
 						<td th:text="${customer.lastName}"></td>
-						<button type="button" class="btn btn-danger float-right">Cancelled</button>
+						<!-- <button type="button" class="btn btn-success float-right">Booked</button> -->
+
+						<button type="button" class="btn btn-warning float-right">Completed</button>
 					</h3>
+
 					<hr>
 					<div
 						class="d-flex flex-row justify-content-between align-items-center order-details">

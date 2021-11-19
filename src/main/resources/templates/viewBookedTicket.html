@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/master-page}">
@@ -11,13 +10,14 @@
 
 		<h1 class="text-center">Ticket</h1>
 		<hr>
-		<div class="container mt-2">
+		<div class="container">
 			<div class="d-flex justify-content-center row">
 				<div class="col-md-10">
-					<div class="receipt bg-white p-3 rounded">
+					<div class="receipt bg-white rounded">
 						<h3 class="name">
-							Hello
+							Hello,
 							<td th:text="${customer.firstName}"></td>
+							<td th:text="${customer.lastName}"></td>
 						</h3>
 						<hr>
 						<div
@@ -91,10 +91,14 @@
 		</div>
 		<hr>
 		<h5 class="text-danger text-center d-block ">
-			Wan't to cancel ticket? <a
+			<a th:if="${flag}"
 				th:href="@{/cancelTicket(customerId=${customer.customerId})}"><button
 					type="button" class="btn btn-danger btn-sm"
 					onclick="alert('Are you sure to cancel this Ticket?')">Cancel</button></a>
+
+			<a th:if="${!flag}"><button type="button"
+					class="btn btn-danger btn-sm">It's too late, Can't cancel
+					Now</button></a>
 		</h5>
 
 	</th:block>

@@ -3,6 +3,8 @@ package com.zensar.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.zensar.model.Movie;
 
 public interface MovieService {
@@ -14,9 +16,10 @@ public interface MovieService {
 	public Movie insertMovie(Movie movie);
 
 	public Iterable<Movie> getAllMovies();
-	
+
 	public Movie editMovie(Movie movie);
-	
+
 	public List<Movie> findAllByMovieNameAndDate(String movieName, LocalDate date);
+
 
 }

@@ -37,10 +37,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.headers().frameOptions().sameOrigin().and().authorizeRequests()
-				.antMatchers("/", "/getregister", "/img/**", "/register").permitAll()
+				.antMatchers("/", "/getregister", "/img/**", "/register","/error").permitAll()
 				.antMatchers("/movie/book**", "/bookTicket", "/movie/book/new", "/viewMovie", "/home", "/movie/search",
 						"/bookedTickets", "/viewBookedTicket", "/cancelTicket", "/cancelledTickets", "/editProfile",
-						"/update")
+						"/update","/completed")
 				.hasRole("USER")
 				.antMatchers("/**", "/viewMovies", "/newMovie", "/movie/new", "/editMovie", "/movie/edit",
 						"/adminViewMovie", "/deletedMovies", "/adminViewDeletedMovie")

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/master-page}">
@@ -60,20 +59,6 @@
 				</div>
 			</div>
 		</div>
-
-		<!-- <div>
-			<ul class="pagination">
-				<li class="page-item disabled"><a class="page-link" href="#">Pages:</a>
-				</li>
-				<th:block th:each="i:${#numbers.sequence(1,flights.totalPages)}">
-					<li
-						th:class="${currentPage}==(${i-1}) ? 'page-item active' : 'page-item'">
-						<a class="page-link" th:href="@{/flights(pageNo=(${i-1}))}"
-						th:text="${i}"></a>
-					</li>
-				</th:block>
-			</ul>
-		</div> -->
 	</th:block>
 </body>
 </html>
