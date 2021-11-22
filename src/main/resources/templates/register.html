@@ -22,7 +22,8 @@
 
 								<label><b>First Name</b></label> <input type="text"
 									placeholder="Please Enter First Name" name="firstName"
-									id="firstname" class="form-control" required>
+									id="firstname" class="form-control" minlength="3"
+									maxlength="15" required>
 							</div>
 
 
@@ -30,13 +31,15 @@
 
 								<label><b>Last Name</b></label> <input type="text"
 									placeholder="Please Enter Last Name" name="lastName"
-									id="lastname" class="form-control" required>
+									id="lastname" class="form-control" minlength="3" maxlength="15"
+									required>
 
 							</div>
 							<div class="form-group">
 								<label><b>Username</b></label> <input type="text"
 									placeholder="Please Enter Username" name="username"
-									id="username" class="form-control" required>
+									id="username" class="form-control" minlength="3" maxlength="15"
+									required>
 								<div th:if="${usernameExists != null}"
 									class="alert alert-danger notification" role="alert">
 									<span th:text="'Username '+${usernameExists}+' already exists'"></span>
@@ -48,7 +51,7 @@
 						<div class="col-6">
 							<div class="form-group">
 
-								<label for="email"><b>Email</b></label> <input type="text"
+								<label for="email"><b>Email</b></label> <input type="email"
 									placeholder="Please Enter Email" name="email" id="email"
 									class="form-control" required>
 								<div th:if="${existingemail != null}"
@@ -59,15 +62,15 @@
 							<div class="form-group">
 
 								<label for="mobileNumber"><b>Mobile Number</b></label> <input
-									type="text" placeholder="Please Enter First Name"
+									type="text" placeholder="Please Enter Mobile Number"
 									name="mobileNumber" id="mobileNumber" class="form-control"
-									required>
+									minlength="10" maxlength="10" required>
 							</div>
 
 							<div class="form-group">
 								<label for="psw"><b>Password</b></label> <input type="password"
 									placeholder="Please Enter Password" name="password"
-									id="password" class="form-control" required>
+									id="password" class="form-control" minlength="6" required>
 							</div>
 						</div>
 					</div>

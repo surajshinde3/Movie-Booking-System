@@ -41,8 +41,9 @@
 									<label class="col-form-label" for="movieName">Movie
 										Name</label> <span th:if="${#fields.hasErrors('movieName')}"
 										th:errors="*{movieName}" class="badge badge-danger"></span> <input
-										type="text" class="form-control" placeholder="" id="movieName"
-										name="movieName" th:value="${movie.movieName}" required>
+										type="text" class="form-control"
+										placeholder="Enter Movie Name" id="movieName" name="movieName"
+										th:value="${movie.movieName}" required>
 								</div>
 
 								<div class="form-group col-md-4">

@@ -138,7 +138,6 @@ public class MovieController {
 			String movieDateTime = date + " " + time;
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 			LocalDateTime mdateTime = LocalDateTime.parse(movieDateTime, formatter);
-			System.out.println(mdateTime);
 
 			LocalDateTime date1 = LocalDateTime.now();
 
@@ -200,7 +199,6 @@ public class MovieController {
 			String movieDateTime = date + " " + time;
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 			LocalDateTime mdateTime = LocalDateTime.parse(movieDateTime, formatter);
-			System.out.println(mdateTime);
 
 			LocalDateTime date1 = LocalDateTime.now();
 
@@ -311,7 +309,6 @@ public class MovieController {
 			String movieDateTime = date + " " + time;
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 			LocalDateTime mdateTime = LocalDateTime.parse(movieDateTime, formatter);
-			System.out.println(mdateTime);
 
 			LocalDateTime date1 = LocalDateTime.now();
 
@@ -612,7 +609,6 @@ public class MovieController {
 			String movieDateTime = date + " " + time;
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 			LocalDateTime mdateTime = LocalDateTime.parse(movieDateTime, formatter);
-			System.out.println(mdateTime);
 
 			LocalDateTime date1 = LocalDateTime.now();
 
