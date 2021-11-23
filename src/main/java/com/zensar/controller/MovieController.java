@@ -12,6 +12,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 
@@ -22,6 +23,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.zensar.model.Customer;
@@ -42,6 +44,98 @@ public class MovieController {
 
 	@Autowired
 	private UserService uservice;
+
+	@RequestMapping("/default")
+	public String defaultAfterLogin(HttpServletRequest request) {
+		if (request.isUserInRole("ROLE_ADMIN")) {
+			return "redirect:/viewMovies?login";
+		}
+		return "redirect:/?login";
+	}
+
+	@GetMapping("/")
+	public String index(Model model) {
+
+		Iterable<Movie> movies = service.getAllMovies();
+
+		List<Movie> moviesDeleted = new ArrayList<Movie>();
+
+		List<Movie> moviesActive = new ArrayList<Movie>();
+
+		for (Movie m : movies) {
+			if (!m.isDeleted()) {
+				moviesDeleted.add(m);
+			}
+		}
+
+		List<Movie> moviess = getSeatCount(moviesDeleted);
+
+		for (Movie movie : moviess) {
+			LocalDate date = movie.getReleaseDate();
+
+			/* Break */
+			String timeConvert = singleTimeConvert(movie.getTime());
+			LocalDate movieDate = movie.getDate();
+			String time = movie.getTime();
+
+			String movieDateTime = movieDate + " " + time;
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+			LocalDateTime mdateTime = LocalDateTime.parse(movieDateTime, formatter);
+
+			LocalDateTime localdate1 = LocalDateTime.now();
+
+			LocalDateTime date2 = LocalDateTime.of(mdateTime.getYear(), mdateTime.getMonthValue(),
+					mdateTime.getDayOfMonth(), mdateTime.getHour(), mdateTime.getMinute());
+
+			/* break */
+
+			LocalDate date1 = LocalDate.now();
+
+			if (date1.isAfter(date) && date2.isAfter(localdate1)) {
+				moviesActive.add(movie);
+			} else if (date1.equals(date) && date2.isAfter(localdate1)) {
+				moviesActive.add(movie);
+			}
+			movie.setTime(timeConvert);
+
+		}
+
+		model.addAttribute("movies", moviesActive);
+		return "index";
+	}
+
+	@GetMapping("/upcoming")
+	public String upcoming(Model model) {
+
+		Iterable<Movie> movies = service.getAllMovies();
+
+		List<Movie> moviesDeleted = new ArrayList<Movie>();
+
+		List<Movie> moviesActive = new ArrayList<Movie>();
+
+		for (Movie m : movies) {
+			if (!m.isDeleted()) {
+				moviesDeleted.add(m);
+			}
+		}
+
+		List<Movie> moviess = getSeatCount(moviesDeleted);
+
+		for (Movie movie : moviess) {
+			String timeConvert = singleTimeConvert(movie.getTime());
+			LocalDate date = movie.getReleaseDate();
+
+			LocalDate date1 = LocalDate.now();
+
+			if (date.isAfter(date1)) {
+				moviesActive.add(movie);
+			}
+			movie.setTime(timeConvert);
+		}
+
+		model.addAttribute("movies", moviesActive);
+		return "upcoming";
+	}
 
 	@GetMapping("/movie/delete")
 	public String deleteMovie(@PathParam("movieId") int movieId) {
@@ -285,7 +379,7 @@ public class MovieController {
 		return "viewMovie";
 	}
 
-	@GetMapping("/home")
+	@GetMapping("/search")
 	public String homePage(Model model) {
 		Iterable<Movie> movies = service.getAllMovies();
 
@@ -323,7 +417,7 @@ public class MovieController {
 		}
 
 		model.addAttribute("movies", moviesActive);
-		return "home";
+		return "search";
 	}
 
 	@PostMapping("/movie/search")
@@ -353,7 +447,7 @@ public class MovieController {
 			model.addAttribute("movieslist", moviess);
 		}
 
-		return "home";
+		return "search";
 	}
 
 	public Movie getSeatCount(Movie movie) {
@@ -400,7 +494,6 @@ public class MovieController {
 		User user = uservice.findByUsername(principal.getName());
 		List<Customer> customers = user.getCustomers();
 		List<Customer> customerBooked = new ArrayList<Customer>();
-		List<Customer> customerActive = new ArrayList<Customer>();
 
 		for (Customer c : customers) {
 
@@ -409,78 +502,13 @@ public class MovieController {
 			}
 		}
 
-		for (Customer c : customerBooked) {
-			Movie movie = c.getMovie();
-			LocalDate date = movie.getDate();
-			String time = movie.getTime();
-
-			String movieDateTime = date + " " + time;
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-			LocalDateTime mdateTime = LocalDateTime.parse(movieDateTime, formatter);
-
-			LocalDateTime date1 = LocalDateTime.now();
-
-			LocalDateTime date2 = LocalDateTime.of(mdateTime.getYear(), mdateTime.getMonthValue(),
-					mdateTime.getDayOfMonth(), mdateTime.getHour(), mdateTime.getMinute());
-
-			if (date2.isAfter(date1)) {
-				customerActive.add(c);
-			}
-		}
-		model.addAttribute("customers", customerActive);
+		model.addAttribute("customers", customerBooked);
 
 		List<Movie> movies = timeConvert(service.getAllMovies());
 
 		model.addAttribute("movies", movies);
 
 		return "bookedTicket";
-	}
-
-	@GetMapping("/completed")
-	public String completedTickets(Model model, Principal principal) {
-
-		User user = uservice.findByUsername(principal.getName());
-		List<Customer> customers = user.getCustomers();
-		List<Customer> customerBooked = new ArrayList<Customer>();
-		List<Customer> customerCompleted = new ArrayList<Customer>();
-
-		for (Customer c : customers) {
-
-			if (!c.isCancelled()) {
-				customerBooked.add(c);
-			}
-		}
-
-		for (Customer c : customerBooked) {
-			Movie movie = c.getMovie();
-			LocalDate date = movie.getDate();
-			String time = movie.getTime();
-
-			String movieDateTime = date + " " + time;
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-			LocalDateTime mdateTime = LocalDateTime.parse(movieDateTime, formatter);
-
-			LocalDateTime date1 = LocalDateTime.now();
-
-			LocalDateTime date2 = LocalDateTime.of(mdateTime.getYear(), mdateTime.getMonthValue(),
-					mdateTime.getDayOfMonth(), mdateTime.getHour(), mdateTime.getMinute());
-
-			if (date1.isAfter(date2)) {
-				customerCompleted.add(c);
-			}
-		}
-		model.addAttribute("customers", customerCompleted);
-
-		List<Movie> movies = timeConvert(service.getAllMovies());
-		Collections.sort(movies, new Comparator<Movie>() {
-			public int compare(Movie o1, Movie o2) {
-				return o2.getDate().compareTo(o1.getDate());
-			}
-		});
-
-		model.addAttribute("movies", movies);
-
-		return "completed";
 	}
 
 	@GetMapping("/viewBookedTicket")

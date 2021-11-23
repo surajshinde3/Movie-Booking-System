@@ -2,34 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/master-page}">
-
-<head>
 <meta charset="UTF-8">
-<title>Movies</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<title>Customers</title>
 </head>
 <body>
 	<th:block layout:fragment="content">
 		<div class="row">
 			<div class="col-12">
-				<div th:if="${param.logout}"
-					class="alert alert-danger alert-dismissible">
-					<a href="#" class="close" data-dismiss="alert" aria-label="close"
-						onclick="">&times;</a> <strong> You have been
-						successfully logged out!!</strong>
-				</div>
-
-				<div th:if="${param.login}"
-					class="alert alert-success alert-dismissible">
-					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-					<strong> You have been successfully logged in!!</strong>
-				</div>
 				<div class="row">
 					<div class="col-md-6">
-						<h1 style="color: darkblue">Released Movies</h1>
+						<h1 style="color: darkblue">Upcoming Movies</h1>
 					</div>
 				</div>
 				<div class="row">
@@ -55,6 +37,7 @@
 							Release Date : <label class="card-text mb-1"
 								th:text="${movie.releaseDate}"></label>
 							<hr>
+
 							Show Date : <label class="card-text mb-1" th:text="${movie.date}"></label>
 							<hr>
 							Show Time : <label class="card-text mb-1" th:text="${movie.time}"></label>
@@ -73,18 +56,16 @@
 									type="button" class="btn btn-danger btn-sm float-right">Housefull</button></a>
 							<a th:if="${movie.customers.size()<movie.seats}"
 								th:href="@{/movie/book/new(movieId=${movie.movieId})}"><button
-									type="button" class="btn btn-success btn-sm float-right">Book</button></a>
+									type="button" class="btn btn-success btn-sm float-right">Pre-Book</button></a>
 						</div>
 					</div>
-
 				</div>
 				<h2>
-					<a href="/upcoming" class="float-right text-primary">
-						<button type="button" class="btn btn-info float-right mb-3">Upcoming
+					<a href="/" class="float-right text-primary">
+						<button type="button" class="btn btn-info float-right mb-3">Released
 							Movies</button>
 					</a>
 				</h2>
-
 			</div>
 		</div>
 	</th:block>

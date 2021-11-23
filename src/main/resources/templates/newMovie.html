@@ -45,6 +45,13 @@
 										placeholder="Enter Movie Name" id="movieName" name="movieName"
 										th:value="${movie.movieName}" required>
 								</div>
+								<div class="form-group col-md-4">
+									<label class="col-form-label" for="releaseDate">Release
+										Date</label> <span th:if="${#fields.hasErrors('releaseDate')}"
+										th:errors="*{releaseDate}" class="badge badge-danger"></span>
+									<input type="date" class="form-control" id="txtDate"
+										name="releaseDate" th:value="${movie.releaseDate}" required>
+								</div>
 
 								<div class="form-group col-md-4">
 									<label class="col-form-label" for="date">Movie Date</label> <span

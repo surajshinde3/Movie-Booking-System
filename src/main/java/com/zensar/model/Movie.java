@@ -22,6 +22,8 @@ public class Movie {
 	private int movieId;
 	private String movieName;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate releaseDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate date;
 	private String time;
 	private int duration;
@@ -42,26 +44,12 @@ public class Movie {
 		super();
 	}
 
-	public Movie(int movieId, String movieName, LocalDate date, String time, int duration, String quality,
-			String language, String type, int seats, int price) {
+	public Movie(int movieId, String movieName, LocalDate releaseDate, LocalDate date, String time, int duration,
+			String quality, String language, String type, String screen, int seats, int price, boolean isDeleted) {
 		super();
 		this.movieId = movieId;
 		this.movieName = movieName;
-		this.date = date;
-		this.time = time;
-		this.duration = duration;
-		this.quality = quality;
-		this.language = language;
-		this.type = type;
-		this.seats = seats;
-		this.price = price;
-	}
-
-	public Movie(int movieId, String movieName, LocalDate date, String time, int duration, String quality,
-			String language, String type, String screen, int seats, int price, List<Customer> customers) {
-		super();
-		this.movieId = movieId;
-		this.movieName = movieName;
+		this.releaseDate = releaseDate;
 		this.date = date;
 		this.time = time;
 		this.duration = duration;
@@ -71,6 +59,26 @@ public class Movie {
 		this.screen = screen;
 		this.seats = seats;
 		this.price = price;
+		this.isDeleted = isDeleted;
+	}
+
+	public Movie(int movieId, String movieName, LocalDate releaseDate, LocalDate date, String time, int duration,
+			String quality, String language, String type, String screen, int seats, int price, boolean isDeleted,
+			List<Customer> customers) {
+		super();
+		this.movieId = movieId;
+		this.movieName = movieName;
+		this.releaseDate = releaseDate;
+		this.date = date;
+		this.time = time;
+		this.duration = duration;
+		this.quality = quality;
+		this.language = language;
+		this.type = type;
+		this.screen = screen;
+		this.seats = seats;
+		this.price = price;
+		this.isDeleted = isDeleted;
 		this.customers = customers;
 	}
 
@@ -88,6 +96,14 @@ public class Movie {
 
 	public void setMovieName(String movieName) {
 		this.movieName = movieName;
+	}
+
+	public LocalDate getReleaseDate() {
+		return releaseDate;
+	}
+
+	public void setReleaseDate(LocalDate releaseDate) {
+		this.releaseDate = releaseDate;
 	}
 
 	public LocalDate getDate() {

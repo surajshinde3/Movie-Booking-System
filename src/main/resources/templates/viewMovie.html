@@ -19,20 +19,19 @@
 							class="d-flex flex-row justify-content-between align-items-center order-details">
 							<div>
 								<span class="d-block fs-12">Movie Name</span><span
-									class="font-weight-bold"><td
-									th:text="${movie.movieName}"></td></span>
+									class="font-weight-bold" th:text="${movie.movieName}"></span>
 							</div>
 							<div>
 								<span class="d-block fs-12">Movie Date</span><span
-									class="font-weight-bold"><td th:text="${movie.date}"></td></span>
+									class="font-weight-bold" th:text="${movie.date}"></span>
 							</div>
 							<div>
 								<span class="d-block fs-12">Duration (In Minutes)</span><span
-									class="font-weight-bold"><td th:text="${movie.duration}"></td></span>
+									class="font-weight-bold" th:text="${movie.duration}"></span>
 							</div>
 							<div>
 								<span class="d-block fs-12">Time</span><span
-									class="font-weight-bold"><td th:text="${movie.time}"></td></span>
+									class="font-weight-bold" th:text="${movie.time}"></span>
 							</div>
 						</div>
 						<hr>
@@ -43,20 +42,16 @@
 							<div class="col-md-12">
 								<div class="billing">
 									<div class="d-flex justify-content-between">
-										<span>Movie Quality</span><span class="font-weight-bold"><td
-											th:text="${movie.quality}"></td></span>
+										<span>Movie Quality</span><span class="font-weight-bold" th:text="${movie.quality}"></span>
 									</div>
 									<div class="d-flex justify-content-between mt-2">
-										<span>Movie Type</span><span class="font-weight-bold"><td
-											th:text="${movie.type}"></td></span>
+										<span>Movie Type</span><span class="font-weight-bold" th:text="${movie.type}"></span>
 									</div>
 									<div class="d-flex justify-content-between mt-2">
-										<span>Screen</span><span class="font-weight-bold"><td
-											th:text="${movie.screen}"></td></span>
+										<span>Screen</span><span class="font-weight-bold" th:text="${movie.screen}"></span>
 									</div>
 									<div class="d-flex justify-content-between mt-2">
-										<span>Seats Available</span><span class="font-weight-bold"><td
-											th:text="${movie.seats - movie.customers.size() +'/'+ movie.seats}"></td></span>
+										<span>Seats Available</span><span class="font-weight-bold" th:text="${movie.seats - movie.customers.size() +'/'+ movie.seats}"></span>
 									</div>
 
 									<hr>
