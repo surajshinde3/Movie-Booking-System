@@ -3,6 +3,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/master-page}">
 <head>
+<title>New Movie</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -49,7 +50,7 @@
 									<label class="col-form-label" for="releaseDate">Release
 										Date</label> <span th:if="${#fields.hasErrors('releaseDate')}"
 										th:errors="*{releaseDate}" class="badge badge-danger"></span>
-									<input type="date" class="form-control" id="txtDate"
+									<input type="date" class="form-control" id="textDate"
 										name="releaseDate" th:value="${movie.releaseDate}" required>
 								</div>
 

@@ -12,7 +12,6 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 
@@ -23,7 +22,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.zensar.model.Customer;
@@ -44,14 +42,6 @@ public class MovieController {
 
 	@Autowired
 	private UserService uservice;
-
-	@RequestMapping("/default")
-	public String defaultAfterLogin(HttpServletRequest request) {
-		if (request.isUserInRole("ROLE_ADMIN")) {
-			return "redirect:/viewMovies?login";
-		}
-		return "redirect:/?login";
-	}
 
 	@GetMapping("/")
 	public String index(Model model) {

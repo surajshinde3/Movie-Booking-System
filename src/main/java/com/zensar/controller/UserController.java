@@ -1,5 +1,6 @@
 package com.zensar.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,14 @@ public class UserController {
 	@GetMapping("/login")
 	public String getLoginPage() {
 		return "login";
+	}
+
+	@RequestMapping("/default")
+	public String defaultAfterLogin(HttpServletRequest request) {
+		if (request.isUserInRole("ROLE_ADMIN")) {
+			return "redirect:/viewMovies?login";
+		}
+		return "redirect:/?login";
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
