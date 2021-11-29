@@ -2,25 +2,30 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/master-page}">
+<head>
 <meta charset="UTF-8">
 <title>Customers</title>
+
+<script>
+	if (window.history.replaceState) {
+		window.history.replaceState(null, null, window.location.href);
+	}
+</script>
 </head>
 <body>
 	<th:block layout:fragment="content">
 
-		<h1 class="text-center">Movie Ticket Booking</h1>
+		<h1 class="text-center">Ticket</h1>
 		<hr>
-		<div class="container mt-2">
+		<div class="container">
 			<div class="d-flex justify-content-center row">
 				<div class="col-md-10">
-					<div class="receipt bg-white p-3 rounded">
+					<div class="receipt bg-white rounded">
 						<h3 class="name">
 							Hello,
 							<td th:text="${customer.firstName}"></td>
 							<td th:text="${customer.lastName}"></td>
 						</h3>
-						<h5 class="mb-2">Your booking is confirmed!</h5>
-
 						<hr>
 						<div
 							class="d-flex flex-row justify-content-between align-items-center order-details">
@@ -96,8 +101,6 @@
 			Wan't to book some more tickets? <a href="/bookTicket">Click
 				Here!</a>
 		</h4>
-
-
 
 	</th:block>
 </body>

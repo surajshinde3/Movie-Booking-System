@@ -8,13 +8,13 @@
 <body>
 	<th:block layout:fragment="content">
 
-		<h1 class="text-center">Ticket</h1>
+		<h1 class="text-center font-weight-normal">Ticket</h1>
 		<hr>
 		<div class="container">
 			<div class="d-flex justify-content-center row">
 				<div class="col-md-10">
 					<div class="receipt bg-white rounded">
-						<h3 class="name">
+						<h3 class="name font-weight-normal">
 							Hello,
 							<td th:text="${customer.firstName}"></td>
 							<td th:text="${customer.lastName}"></td>
@@ -93,11 +93,11 @@
 		<h5 class="text-danger text-center d-block ">
 			<a th:if="${flag}"
 				th:href="@{/cancelTicket(customerId=${customer.customerId})}"><button
-					type="button" class="btn btn-danger btn-sm"
+					type="button" class="btn btn-danger btn-sm rounded"
 					onclick="alert('Are you sure to cancel this Ticket?')">Cancel</button></a>
 
 			<a th:if="${!flag}"><button type="button"
-					class="btn btn-danger btn-sm">It's too late, Can't cancel
+					class="btn btn-danger btn-sm rounded">It's too late, Can't cancel
 					Now</button></a>
 		</h5>
 

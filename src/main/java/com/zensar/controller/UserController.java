@@ -57,4 +57,11 @@ public class UserController {
 			return "redirect:/login";
 		}
 	}
+
+	@RequestMapping("/test")
+	public String test() {
+
+		return "indexpage";
+	}
+
 }

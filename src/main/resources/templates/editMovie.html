@@ -26,14 +26,17 @@
 
 <body>
 	<th:block layout:fragment="content">
-		<div class="row">
-			<div class="col-md-12" style="margin-bottom: 10px">
-				<h1 style="color: darkblue">Edit Movie Information :</h1>
-			</div>
-		</div>
+		
 		<div class="row">
 			<div class="col">
 				<div class="card">
+				<div class="card-header">
+						<div class="row">
+							<div class="col-md-12">
+								<h1 style="color: darkblue">Edit Movie Information :</h1>
+							</div>
+						</div>
+					</div>
 					<div class="card-body">
 						<form action="/movie/edit" method="post" th:object="${movie}">
 							<div class="row">
@@ -131,7 +134,7 @@
 								</div>
 
 								<div class="form-group col-12">
-									<button type="submit" class="btn btn-success"
+									<button type="submit" class="btn btn-warning rounded"
 										style="float: right"
 										onclick="alert('Are you sure to Save this Movie?')">Save</button>
 								</div>

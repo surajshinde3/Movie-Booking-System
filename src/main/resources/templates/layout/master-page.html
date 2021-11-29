@@ -56,18 +56,18 @@
 					style="color: white; font-weight: bold; font-size: large;"
 					sec:authentication="principal.username"></span>&nbsp; <a
 					href="/logout">
-					<button class="btn btn-secondary my-2 my-sm-0" type="submit">Logout</button>
+					<button class="btn btn-warning my-2 my-sm-0 rounded" type="submit">Logout</button>
 				</a>
 			</div>
 
 
 
 			<div sec:authorize="!isAuthenticated()">
-				<a class="btn btn-warning my-2 my-sm-0" type="submit"
+				<a class="btn btn-warning my-2 my-sm-0 rounded" type="submit"
 					href="/getregister">Register</a>&nbsp;&nbsp;&nbsp;
 			</div>
 			<div sec:authorize="!isAuthenticated()">
-				<a class="btn btn-success my-2 my-sm-0" type="submit" href="/login">Login</a>
+				<a class="btn btn-success my-2 my-sm-0 rounded" type="submit" href="/login">Login</a>
 			</div>
 
 		</div>

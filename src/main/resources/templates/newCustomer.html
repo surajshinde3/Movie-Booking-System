@@ -5,15 +5,18 @@
 
 <body>
 	<th:block layout:fragment="content">
-		<div class="row">
-			<div class="col-md-12" style="margin-bottom: 10px">
-				<h1 style="color: darkblue">Customer Information</h1>
-			</div>
-		</div>
+
 
 		<div class="row">
 			<div class="col">
 				<div class="card">
+					<div class="card-header">
+						<div class="row">
+							<div class="col-md-12" style="margin-bottom: 10px">
+								<h1 style="color: darkblue">Customer Information</h1>
+							</div>
+						</div>
+					</div>
 					<div class="card-body">
 						<form action="/movie/book/new" method="post"
 							th:object="${customer}">
@@ -25,7 +28,8 @@
 										Name</label> <span th:if="${#fields.hasErrors('firstName')}"
 										th:errors="*{firstName}" class="badge badge-danger"></span> <input
 										type="text" class="form-control" placeholder="" id="firstName"
-										name="firstName" th:value="${customer.firstName}" minlength="3" required>
+										name="firstName" th:value="${customer.firstName}"
+										minlength="3" required>
 								</div>
 
 								<div class="form-group col-md-6">
@@ -33,7 +37,8 @@
 									<span th:if="${#fields.hasErrors('lastName')}"
 										th:errors="*{lastName}" class="badge badge-danger"></span> <input
 										type="text" class="form-control" placeholder="" id="lastName"
-										name="lastName" th:value="${customer.lastName}" minlength="3" required>
+										name="lastName" th:value="${customer.lastName}" minlength="3"
+										required>
 								</div>
 
 								<div class="form-group col-md-6">
@@ -42,7 +47,8 @@
 										th:errors="*{phoneNumber}" class="badge badge-danger"></span>
 									<input type="text" class="form-control" placeholder=""
 										id="phoneNumber" name="phoneNumber"
-										th:value="${customer.phoneNumber}" minlength="10" maxlength="10" required>
+										th:value="${customer.phoneNumber}" minlength="10"
+										maxlength="10" required>
 								</div>
 
 								<div class="form-group col-md-6">

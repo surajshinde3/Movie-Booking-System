@@ -14,24 +14,23 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<div class="card bg-white p-3 rounded border border-primary mb-3"
+				<div class="card bg-white rounded border border-success mb-3"
 					th:each="customer, iterStat:${customers}">
-					<h3 class="name">
-						Hello,
-						<td th:text="${customer.firstName}"></td>
-						<td th:text="${customer.lastName}"></td>
-						<!-- <button type="button" class="btn btn-success float-right">Booked</button> -->
+					<div class="card-header">
+						<h3 class="name font-weight-normal">
+							Hello,
+							<td th:text="${customer.firstName}"></td>
+							<td th:text="${customer.lastName}"></td>
+							<!-- <button type="button" class="btn btn-success float-right">Booked</button> -->
 
-						<button type="button"
-							class="btn btn-success float-right">Booked</button>
-					</h3>
+							<button type="button" class="btn btn-success float-right rounded">Booked</button>
+						</h3>
+					</div>
 					<a
 						th:href="@{/viewBookedTicket(customerId=${customer.customerId})}"
 						class="stretched-link"></a>
 
-					<hr>
-					<div
-						class="d-flex flex-row justify-content-between align-items-center order-details">
+					<div class="d-flex  justify-content-between p-3">
 						<div>
 							<span class="d-block fs-12">Movie Name</span><span
 								class="font-weight-bold"><td
@@ -54,7 +53,7 @@
 						</div>
 					</div>
 					<hr>
-					<div class="mt-10 amount row">
+					<div class="row p-3">
 
 						<div class="col-md-12">
 							<div class="billing">
@@ -81,17 +80,13 @@
 						</div>
 					</div>
 
-					<hr>
-					<div
-						class="d-flex justify-content-between align-items-center footer">
-						<div class="thanks">
-							<span class="d-block font-weight-bold">Thanks for Booking</span>
+					<div class="card-footer">
+						<div class="d-flex justify-content-between mt-1">
+							<span class="font-weight-bold">Thanks for Booking</span><span
+								class="d-block font-weight-bold">Need Help? Call -
+								9988776655</span>
 						</div>
-						<div
-							class="d-flex flex-column justify-content-end align-items-end">
-							<span class="d-block font-weight-bold">Need Help?</span><span>Call
-								- 9988776655</span>
-						</div>
+
 					</div>
 
 				</div>

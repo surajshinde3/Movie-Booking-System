@@ -15,11 +15,11 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-3 card border-dark"
+					<div class="col-3 card rounded border border-info"
 						th:each="movie,iterStat:${movies}"
 						style="width: 50rem; margin-bottom: 2ex;">
-						<div class="card-header">
-							<h3 class="card-title" th:text="${movie.movieName}"></h3>
+						<div class="card-header ">
+							<h3 class="card-title font-weight-normal" th:text="${movie.movieName}"></h3>
 							<div class="row">
 								<div class="col-3">
 									<h6 class="card-subtitle text-muted" th:text="${movie.quality}"></h6>
@@ -53,10 +53,10 @@
 						</div>
 						<div class="card-footer">
 							<a th:if="${movie.customers.size()>=movie.seats}"><button
-									type="button" class="btn btn-danger btn-sm float-right">Housefull</button></a>
+									type="button" class="btn btn-danger btn-sm float-right rounded">Housefull</button></a>
 							<a th:if="${movie.customers.size()<movie.seats}"
 								th:href="@{/movie/book/new(movieId=${movie.movieId})}"><button
-									type="button" class="btn btn-success btn-sm float-right">Book</button></a>
+									type="button" class="btn btn-success btn-sm float-right rounded">Book</button></a>
 						</div>
 					</div>
 				</div>
