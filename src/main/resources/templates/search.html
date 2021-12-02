@@ -45,47 +45,45 @@
 			</div>
 		</th:block>
 		<th:block th:if="${movies!=null}">
-
-			<div class="row">
-				<div class="col-3 card rounded border border-primary"
-					th:each="movie,iterStat:${movieslist}"
-					style="width: 50rem; margin-bottom: 2ex;">
-					<div class="card-header">
-						<h3 class="card-title font-weight-normal" th:text="${movie.movieName}"></h3>
-						<div class="row">
-							<div class="col-3">
-								<h6 class="card-subtitle text-muted" th:text="${movie.quality}"></h6>
-							</div>
-							<div class="col">
-								<h6 class="card-subtitle text-muted" th:text="${movie.type}"></h6>
-							</div>
-							<div class="col">
-								<h6 class="card-subtitle text-muted" th:text="${movie.language}"></h6>
-							</div>
+			<div class="col-3 card rounded border border-primary"
+				th:each="movie,iterStat:${movieslist}"
+				style="width: 50rem; margin-bottom: 2ex;">
+				<div class="card-header">
+					<h3 class="card-title font-weight-normal"
+						th:text="${movie.movieName}"></h3>
+					<div class="row">
+						<div class="col-3">
+							<h6 class="card-subtitle text-muted" th:text="${movie.quality}"></h6>
+						</div>
+						<div class="col">
+							<h6 class="card-subtitle text-muted" th:text="${movie.type}"></h6>
+						</div>
+						<div class="col">
+							<h6 class="card-subtitle text-muted" th:text="${movie.language}"></h6>
 						</div>
 					</div>
-					<div class="card-body">
+				</div>
+				<div class="card-body">
 
-						Date : <label class="card-text mb-1" th:text="${movie.date}"></label>
-						<hr>
-						Show Time : <label class="card-text mb-1" th:text="${movie.time}"></label>
-						<hr>
-						Ticket Price : <label class="card-text mb-1"
-							th:text="${movie.price}"></label>
-						<hr>
-						Seats Available : <label class="card-text"
-							th:text="${movie.seats - movie.customers.size() +'/'+ movie.seats}"></label>
-						<a th:href="@{/viewMovie(movieId=${movie.movieId})}"
-							class="stretched-link"></a>
+					Date : <label class="card-text mb-1" th:text="${movie.date}"></label>
+					<hr>
+					Show Time : <label class="card-text mb-1" th:text="${movie.time}"></label>
+					<hr>
+					Ticket Price : <label class="card-text mb-1"
+						th:text="${movie.price}"></label>
+					<hr>
+					Seats Available : <label class="card-text"
+						th:text="${movie.seats - movie.customers.size() +'/'+ movie.seats}"></label>
+					<a th:href="@{/viewMovie(movieId=${movie.movieId})}"
+						class="stretched-link"></a>
 
-					</div>
-					<div class="card-footer">
-						<a th:if="${movie.customers.size()>=movie.seats}"><button
-								type="button" class="btn btn-danger btn-sm float-right rounded">Housefull</button></a>
-						<a th:if="${movie.customers.size()<movie.seats}"
-							th:href="@{/movie/book/new(movieId=${movie.movieId})}"><button
-								type="button" class="btn btn-success btn-sm float-right rounded">Book</button></a>
-					</div>
+				</div>
+				<div class="card-footer">
+					<a th:if="${movie.customers.size()>=movie.seats}"><button
+							type="button" class="btn btn-danger btn-sm float-right rounded">Housefull</button></a>
+					<a th:if="${movie.customers.size()<movie.seats}"
+						th:href="@{/movie/book/new(movieId=${movie.movieId})}"><button
+							type="button" class="btn btn-success btn-sm float-right rounded">Book</button></a>
 				</div>
 			</div>
 		</th:block>

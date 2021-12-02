@@ -47,12 +47,10 @@
 							Movies</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="/viewCompletedMovies">Completed Movies</a></li>
-
-
 				</th:block>
 			</ul>
 			<div sec:authorize="isAuthenticated()">
-				<span style="color: white">Welcome </span> <span
+				<span style="color: white">Hello, </span> <span
 					style="color: white; font-weight: bold; font-size: large;"
 					sec:authentication="principal.username"></span>&nbsp; <a
 					href="/logout">
@@ -67,7 +65,8 @@
 					href="/getregister">Register</a>&nbsp;&nbsp;&nbsp;
 			</div>
 			<div sec:authorize="!isAuthenticated()">
-				<a class="btn btn-success my-2 my-sm-0 rounded" type="submit" href="/login">Login</a>
+				<a class="btn btn-success my-2 my-sm-0 rounded" type="submit"
+					href="/login">Login</a>
 			</div>
 
 		</div>

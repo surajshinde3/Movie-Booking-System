@@ -54,7 +54,7 @@ public class UserController {
 			return "register";
 		} else {
 			userService.saveUser(user);
-			return "redirect:/login";
+			return "redirect:/getregister?register";
 		}
 	}
 

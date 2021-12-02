@@ -37,18 +37,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.headers().frameOptions().sameOrigin().and().authorizeRequests()
-				.antMatchers("/", "/getregister", "/img/**", "/register", "/error","/default","/upcoming","/test").permitAll()
-				.antMatchers("/movie/book**", "/bookTicket", "/movie/book/new", "/viewMovie", "/search", "/movie/search",
-						"/bookedTickets", "/viewBookedTicket", "/cancelTicket", "/cancelledTickets", "/editProfile",
-						"/update","/home")
+				.antMatchers("/", "/getregister", "/register", "/error", "/default", "/upcoming", "/test").permitAll()
+				.antMatchers("/movie/book**", "/bookTicket", "/movie/book/new", "/viewMovie", "/search",
+						"/movie/search", "/bookedTickets", "/viewBookedTicket", "/cancelTicket", "/cancelledTickets",
+						"/editProfile", "/update", "/home")
 				.hasRole("USER")
 				.antMatchers("/**", "/viewMovies", "/newMovie", "/movie/new", "/editMovie", "/movie/edit",
-						"/adminViewMovie", "/deletedMovies", "/adminViewDeletedMovie","/viewCompletedMovies","/adminViewCompletedMovie")
+						"/adminViewMovie", "/deletedMovies", "/adminViewDeletedMovie", "/viewCompletedMovies",
+						"/adminViewCompletedMovie")
 				.hasRole("ADMIN")
 
 				.anyRequest().authenticated().and().formLogin().loginPage("/login").defaultSuccessUrl("/default")
 				.failureUrl("/login?error").permitAll().and().logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/?logout")
-				.permitAll().and().csrf().disable().exceptionHandling();
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/?logout").permitAll()
+				.and().csrf().disable().exceptionHandling();
 	}
 }

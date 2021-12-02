@@ -10,81 +10,82 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
 <body>
-	<th:block layout:fragment="content">
-		<div class="row">
-			<div class="col-12">
+	<th:block layout:fragment="content" class="container-fluid">
+
+		<div class="row ">
+			<div class="col">
 				<div th:if="${param.logout}"
-					class="alert alert-danger alert-dismissible rounded">
+					class="alert alert-danger alert-dismissible rounded float-right">
 					<a href="#" class="close" data-dismiss="alert" aria-label="close"
 						onclick="">&times;</a> <strong> You have been
 						successfully logged out!!</strong>
 				</div>
 
 				<div th:if="${param.login}"
-					class="alert alert-success alert-dismissible rounded">
+					class="alert alert-success alert-dismissible rounded float-right">
 					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 					<strong> You have been successfully logged in!!</strong>
 				</div>
-				<div class="row">
-					<div class="col-md-6">
-						<h1 style="color: darkblue">Released Movies</h1>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-3 card rounded border border-primary"
-						th:each="movie,iterStat:${movies}"
-						style="width: 50rem; margin-bottom: 2ex;">
-						<div class="card-header">
-							<h3 class="card-title font-weight-normal" th:text="${movie.movieName}"></h3>
-							<div class="row">
-								<div class="col-3">
-									<h6 class="card-subtitle text-muted" th:text="${movie.quality}"></h6>
-								</div>
-								<div class="col">
-									<h6 class="card-subtitle text-muted" th:text="${movie.type}"></h6>
-								</div>
-								<div class="col">
-									<h6 class="card-subtitle text-muted"
-										th:text="${movie.language}"></h6>
-								</div>
-							</div>
+			</div>
+		</div>
+		<div class="row">
+			<h1 style="color: darkblue">Released Movies</h1>
+		</div>
+		<div class="row">
+			<div class="col-3 card rounded border border-primary"
+				th:each="movie,iterStat:${movies}"
+				style="width: 50rem; margin-bottom: 2ex;">
+				<div class="card-header">
+					<h3 class="card-title font-weight-normal"
+						th:text="${movie.movieName}"></h3>
+					<div class="row">
+						<div class="col-3">
+							<h6 class="card-subtitle text-muted" th:text="${movie.quality}"></h6>
 						</div>
-						<div class="card-body">
-							Release Date : <label class="card-text mb-1"
-								th:text="${movie.releaseDate}"></label>
-							<hr>
-							Show Date : <label class="card-text mb-1" th:text="${movie.date}"></label>
-							<hr>
-							Show Time : <label class="card-text mb-1" th:text="${movie.time}"></label>
-							<hr>
-							Ticket Price : <label class="card-text mb-1"
-								th:text="${movie.price}"></label>
-							<hr>
-							Seats Available : <label class="card-text"
-								th:text="${movie.seats - movie.customers.size() +'/'+ movie.seats}"></label>
-							<a th:href="@{/viewMovie(movieId=${movie.movieId})}"
-								class="stretched-link"></a>
-
+						<div class="col">
+							<h6 class="card-subtitle text-muted" th:text="${movie.type}"></h6>
 						</div>
-						<div class="card-footer">
-							<a th:if="${movie.customers.size()>=movie.seats}"><button
-									type="button" class="btn btn-danger btn-sm float-right rounded">Housefull</button></a>
-							<a th:if="${movie.customers.size()<movie.seats}"
-								th:href="@{/movie/book/new(movieId=${movie.movieId})}"><button
-									type="button" class="btn btn-success btn-sm float-right rounded">Book</button></a>
+						<div class="col">
+							<h6 class="card-subtitle text-muted" th:text="${movie.language}"></h6>
 						</div>
 					</div>
+				</div>
+				<div class="card-body">
+					Release Date : <label class="card-text mb-1"
+						th:text="${movie.releaseDate}"></label>
+					<hr>
+					Show Date : <label class="card-text mb-1" th:text="${movie.date}"></label>
+					<hr>
+					Show Time : <label class="card-text mb-1" th:text="${movie.time}"></label>
+					<hr>
+					Ticket Price : <label class="card-text mb-1"
+						th:text="${movie.price}"></label>
+					<hr>
+					Seats Available : <label class="card-text"
+						th:text="${movie.seats - movie.customers.size() +'/'+ movie.seats}"></label>
+					<a th:href="@{/viewMovie(movieId=${movie.movieId})}"
+						class="stretched-link"></a>
 
 				</div>
-				<h2>
-					<a href="/upcoming" class="float-right text-primary">
-						<button type="button" class="btn btn-info float-right mb-3 rounded">Upcoming
-							Movies</button>
-					</a>
-				</h2>
+				<div class="card-footer">
+					<a th:if="${movie.customers.size()>=movie.seats}"><button
+							type="button" class="btn btn-danger btn-sm float-right rounded">Housefull</button></a>
+					<a th:if="${movie.customers.size()<movie.seats}"
+						th:href="@{/movie/book/new(movieId=${movie.movieId})}"><button
+							type="button" class="btn btn-success btn-sm float-right rounded">Book</button></a>
+				</div>
+			</div>
+		</div>
 
+		<div class="row">
+			<div class="col">
+				<a href="/upcoming" class="text-primary float-right">
+					<button type="button" class="btn btn-info mb-3 rounded">Upcoming
+						Movies</button>
+				</a>
 			</div>
 		</div>
 	</th:block>

@@ -6,7 +6,12 @@
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>Register</title>
+
 </head>
 
 <body>
@@ -15,15 +20,21 @@
 			<div class="col-md-12 jumbotron">
 				<h2 style="text-align: center" class="text-dark">Sign Up</h2>
 
-				<form action="/register" method="post" class="form">
+				<form action="/register" method="post" class="form"
+					autocomplete="off">
+					<div th:if="${param.register}"
+						class="alert alert-dismissible alert-success">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<span th:text="'User registered successfully!'"></span>
+					</div>
 					<div class="row">
 						<div class="col-6">
 							<div class="form-group">
 
 								<label><b>First Name</b></label> <input type="text"
 									placeholder="Please Enter First Name" name="firstName"
-									id="firstname" class="form-control" minlength="3"
-									maxlength="15" required>
+									autocomplete="off" id="firstname" class="form-control"
+									minlength="3" maxlength="15" required>
 							</div>
 
 

@@ -73,16 +73,15 @@
 			<div class="card-footer">
 				<div class="d-flex justify-content-between mt-1 col-md-12">
 					<span class="font-weight-bold">Ticket Price</span><span
-						class="font-weight-bold text-success"> Rs.
-						<td th:text="${movie.price}"></td>
-					</span>
+						class="font-weight-bold text-success"
+						th:text="Rs. + ${movie.price}"> </span>
 				</div>
 			</div>
 		</div>
 		<div class="text-center mt-3">
 			<a th:href="@{/customers(movieId=${movie.movieId})}"><button
-					type="button" class="btn btn-outline-success rounded">View</button></a> <a
-				th:href="@{/movie/edit(movieId=${movie.movieId})}"><button
+					type="button" class="btn btn-outline-success rounded">View</button></a>
+			<a th:href="@{/movie/edit(movieId=${movie.movieId})}"><button
 					type="button" class="btn btn-outline-primary rounded"
 					onclick="alert('Are you sure to edit this Movie?')">Edit</button></a> <a
 				th:href="@{/movie/delete(movieId=${movie.movieId})}"><button

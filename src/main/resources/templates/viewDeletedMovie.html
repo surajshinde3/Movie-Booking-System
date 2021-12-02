@@ -73,13 +73,12 @@
 			<div class="card-footer">
 				<div class="d-flex justify-content-between mt-1 col-md-12">
 					<span class="font-weight-bold">Ticket Price</span><span
-						class="font-weight-bold text-success"> Rs.
-						<td th:text="${movie.price}"></td>
-					</span>
+						class="font-weight-bold text-success"
+						th:text="Rs. +${movie.price}"> </span>
 				</div>
 			</div>
 		</div>
-		
+
 	</th:block>
 </body>
 </html>
