@@ -3,6 +3,148 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/master-page}">
 <meta charset="UTF-8">
+<head>
+<script type="text/javascript">
+	function checker() {
+		var result = confirm("Are you sure?");
+		if (result == false) {
+			event.preventDefault();
+		}
+	}
+</script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+	
+</script>
+<script type="text/javascript">
+	function openAlert(msg, gfg) {
+		var confirmBox = $("#container");
+
+		confirmBox.find(".message").text(msg);
+
+		confirmBox.find(".yes").unbind().click(function() {
+
+			confirmBox.hide();
+		});
+		confirmBox.find(".yes").click(gfg);
+
+		confirmBox.show();
+
+		confirmBox.find(".no").unbind().click(function() {
+			event.preventDefault();
+			confirmBox.hide();
+		});
+		confirmBox.find(".no").click(gfg);
+		confirmBox.show();
+	}
+</script>
+<script type="text/javascript">
+	function openAlertDelete(msg, gfg) {
+		var confirmBox = $("#container1");
+
+		confirmBox.find(".messageDelete").text(msg);
+
+		confirmBox.find(".yesDelete").unbind().click(function() {
+
+			confirmBox.hide();
+		});
+		confirmBox.find(".yesDelete").click(gfg);
+
+		confirmBox.show();
+
+		confirmBox.find(".noDelete").unbind().click(function() {
+			event.preventDefault();
+			confirmBox.hide();
+		});
+		confirmBox.find(".noDelete").click(gfg);
+		confirmBox.show();
+	}
+</script>
+<style>
+#container {
+	display: none;
+	background-image: linear-gradient(to right, #33ACFF, #C3DBEB);
+	background-size: cover;
+	color: white;
+	position: fixed;
+	width: 500px;
+	border-radius: 5px;
+	left: 50%;
+	margin-left: -250px;
+	padding: 16px 8px 8px;
+	box-sizing: border-box;
+	background-size: cover;
+}
+
+#container .yes {
+	display: inline-block;
+	border-radius: 3px;
+	padding: 5px;
+	margin-right: 10px;
+	text-align: center;
+	width: 60px;
+	float: right;
+}
+
+#container .no {
+	display: inline-block;
+	border-radius: 5px;
+	padding: 5px;
+	margin-right: 10px;
+	text-align: center;
+	width: 60px;
+	float: right;
+}
+
+#container .message {
+	text-align: left;
+	padding: 10px 30px;
+	font-size: large;
+}
+</style>
+
+<style>
+#container1 {
+	display: none;
+	background-image: linear-gradient(to right, #33ACFF, #C3DBEB);
+	background-size: cover;
+	color: white;
+	position: fixed;
+	width: 500px;
+	border-radius: 5px;
+	left: 50%;
+	margin-left: -250px;
+	padding: 16px 8px 8px;
+	box-sizing: border-box;
+	background-size: cover;
+}
+
+#container1 .yesDelete {
+	display: inline-block;
+	border-radius: 3px;
+	padding: 5px;
+	margin-right: 10px;
+	text-align: center;
+	width: 60px;
+	float: right;
+}
+
+#container1 .noDelete {
+	display: inline-block;
+	border-radius: 5px;
+	padding: 5px;
+	margin-right: 10px;
+	text-align: center;
+	width: 60px;
+	float: right;
+}
+
+
+#container1 .messageDelete {
+	text-align: left;
+	padding: 10px 30px;
+}
+</style>
 <title>Customers</title>
 </head>
 <body>
@@ -14,7 +156,28 @@
 			<div class="container mt-2">
 				<div class="row">
 					<div class="col-md-12">
+						<div id="container">
+							<div class="message">Do you really want to edit?</div>
+
+							<a th:href="@{/movie/edit(movieId=${movie.movieId})}"> <input
+								class="btn btn-success rounded yes" type="button" value="Yes" />
+							</a>
+
+							<button class="no btn btn-danger">No</button>
+						</div>
+
+						<div id="container1">
+							<div class="messageDelete">Do you really want to delete?</div>
+
+							<a th:href="@{/movie/delete(movieId=${movie.movieId})}"> <input
+								class="btn btn-success rounded yesDelete" type="button"
+								value="Yes" />
+							</a>
+
+							<button class="noDelete btn btn-danger">No</button>
+						</div>
 						<div class="receipt bg-white p-3 rounded" th:object="${movie}">
+
 
 							<div
 								class="d-flex flex-row justify-content-between align-items-center order-details">
@@ -39,6 +202,8 @@
 										class="font-weight-bold" th:text="${movie.time}"></span>
 								</div>
 							</div>
+
+
 							<hr>
 
 
@@ -66,6 +231,7 @@
 								</div>
 							</div>
 
+
 						</div>
 					</div>
 				</div>
@@ -81,15 +247,11 @@
 		<div class="text-center mt-3">
 			<a th:href="@{/customers(movieId=${movie.movieId})}"><button
 					type="button" class="btn btn-outline-success rounded">View</button></a>
-			<a th:href="@{/movie/edit(movieId=${movie.movieId})}"><button
-					type="button" class="btn btn-outline-primary rounded"
-					onclick="alert('Are you sure to edit this Movie?')">Edit</button></a> <a
-				th:href="@{/movie/delete(movieId=${movie.movieId})}"><button
+			<a><button type="button" class="btn btn-outline-primary rounded"
+					onclick="openAlert()">Edit</button></a> <a><button
 					th:if="${movie.seats - movie.customers.size()==movie.seats}"
 					type="button" class="btn btn-outline-danger rounded"
-					onclick="alert('Are you sure to delete this Movie?')">Delete</button>
-
-			</a>
+					onclick="openAlertDelete()">Delete</button> </a>
 		</div>
 	</th:block>
 </body>

@@ -2,11 +2,79 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/master-page}">
+<head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+	
+</script>
+<script type="text/javascript">
+	function geeks(msg, gfg) {
+		var confirmBox = $("#container");
+
+		confirmBox.find(".message").text(msg);
+
+		confirmBox.find(".yes").unbind().click(function() {
+
+			confirmBox.hide();
+		});
+		confirmBox.find(".yes").click(gfg);
+		confirmBox.show();
+
+		confirmBox.find(".no").unbind().click(function() {
+			event.preventDefault();
+			confirmBox.hide();
+		});
+		confirmBox.find(".no").click(gfg);
+		confirmBox.show();
+	}
+</script>
+<style>
+#container {
+	display: none;
+	background-image: linear-gradient(to right, #33ACFF, #C3DBEB);
+	background-size: cover;
+	color: white;
+	position: fixed;
+	width: 500px;
+	border-radius: 5px;
+	left: 50%;
+	margin-left: -250px;
+	padding: 16px 8px 8px;
+	box-sizing: border-box;
+	background-size: cover;
+}
+
+#container .yes {
+	display: inline-block;
+	border-radius: 3px;
+	padding: 5px;
+	margin-right: 10px;
+	text-align: center;
+	width: 60px;
+	float: right;
+}
+
+#container .no {
+	display: inline-block;
+	border-radius: 5px;
+	padding: 5px;
+	margin-right: 10px;
+	text-align: center;
+	width: 60px;
+	float: right;
+}
+
+#container .message {
+	text-align: left;
+	padding: 10px 30px;
+	font-size: large;
+}
+</style>
+
+</head>
 
 <body>
 	<th:block layout:fragment="content">
-
-
 		<div class="row">
 			<div class="col">
 				<div class="card">
@@ -19,7 +87,7 @@
 					</div>
 					<div class="card-body">
 						<form action="/movie/book/new" method="post"
-							th:object="${customer}">
+							th:object="${customer}" autocomplete="off">
 							<div class="row">
 								<input type="hidden" th:value="${movieId}" name="movieId">
 
@@ -29,7 +97,7 @@
 										th:errors="*{firstName}" class="badge badge-danger"></span> <input
 										type="text" class="form-control" placeholder="" id="firstName"
 										name="firstName" th:value="${customer.firstName}"
-										minlength="3" required>
+										minlength="3" autocomplete="off" required>
 								</div>
 
 								<div class="form-group col-md-6">
@@ -38,7 +106,7 @@
 										th:errors="*{lastName}" class="badge badge-danger"></span> <input
 										type="text" class="form-control" placeholder="" id="lastName"
 										name="lastName" th:value="${customer.lastName}" minlength="3"
-										required>
+										autocomplete="off" required>
 								</div>
 
 								<div class="form-group col-md-6">
@@ -48,7 +116,7 @@
 									<input type="text" class="form-control" placeholder=""
 										id="phoneNumber" name="phoneNumber"
 										th:value="${customer.phoneNumber}" minlength="10"
-										maxlength="10" required>
+										maxlength="10" autocomplete="off" required>
 								</div>
 
 								<div class="form-group col-md-6">
@@ -56,15 +124,19 @@
 									<span th:if="${#fields.hasErrors('email')}"
 										th:errors="*{email}" class="badge badge-danger"></span> <input
 										type="email" class="form-control" placeholder="" id="email"
-										name="email" th:value="${customer.email}" required>
+										name="email" th:value="${customer.email}" autocomplete="off"
+										required>
 								</div>
 
 								<div class="form-group col-12">
-									<button type="submit" class="btn btn-success"
-										style="float: right"
-										onclick="alert('Are you sure to Book this Movie Ticket?')">Save</button>
+									<input class="btn btn-success" style="float: right"
+										type="button" value="Save" onclick="geeks();" />
 								</div>
-
+								<div id="container">
+									<div class="message">Do you really want to confirm?</div>
+									<button class="yes btn btn-success" type="submit">Yes</button>
+									<button class="no btn btn-danger">No</button>
+								</div>
 							</div>
 						</form>
 					</div>

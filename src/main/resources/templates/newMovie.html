@@ -22,6 +22,75 @@
 		$('#txtDate').attr('min', maxDate);
 	});
 </script>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+	
+</script>
+<script type="text/javascript">
+	function openAlert(msg, gfg) {
+		var confirmBox = $("#container");
+
+		confirmBox.find(".message").text(msg);
+
+		confirmBox.find(".yes").unbind().click(function() {
+
+			confirmBox.hide();
+		});
+		confirmBox.find(".yes").click(gfg);
+
+		confirmBox.show();
+
+		confirmBox.find(".no").unbind().click(function() {
+			event.preventDefault();
+			confirmBox.hide();
+		});
+		confirmBox.find(".no").click(gfg);
+		confirmBox.show();
+	}
+</script>
+<style>
+#container {
+	display: none;
+	background-image: linear-gradient(to right, #33ACFF, #C3DBEB);
+	background-size: cover;
+	color: white;
+	position: fixed;
+	width: 500px;
+	border-radius: 5px;
+	left: 50%;
+	margin-left: -250px;
+	padding: 16px 8px 8px;
+	box-sizing: border-box;
+	background-size: cover;
+}
+
+#container .yes {
+	display: inline-block;
+	border-radius: 3px;
+	padding: 5px;
+	margin-right: 10px;
+	text-align: center;
+	width: 60px;
+	float: right;
+}
+
+#container .no {
+	display: inline-block;
+	border-radius: 5px;
+	padding: 5px;
+	margin-right: 10px;
+	text-align: center;
+	width: 60px;
+	float: right;
+}
+
+#container .message {
+	text-align: left;
+	padding: 10px 30px;
+	font-size: large;
+}
+</style>
 </head>
 <body>
 	<th:block layout:fragment="content">
@@ -32,13 +101,14 @@
 					<div class="card-header">
 						<div class="row">
 							<div class="col-md-12">
-								<h1 style="color: darkblue">Add Movie Information :</h1>
+								<h1 style="color: darkblue">Add Movie Information</h1>
 							</div>
 						</div>
 					</div>
 
 					<div class="card-body">
-						<form action="/movie/new" method="post" th:object="${movie}">
+						<form action="/movie/new" method="post" th:object="${movie}"
+							autocomplete="off">
 							<div class="row">
 
 								<div class="form-group col-md-4">
@@ -47,14 +117,15 @@
 										th:errors="*{movieName}" class="badge badge-danger"></span> <input
 										type="text" class="form-control"
 										placeholder="Enter Movie Name" id="movieName" name="movieName"
-										th:value="${movie.movieName}" required>
+										th:value="${movie.movieName}" autocomplete="off" required>
 								</div>
 								<div class="form-group col-md-4">
 									<label class="col-form-label" for="releaseDate">Release
 										Date</label> <span th:if="${#fields.hasErrors('releaseDate')}"
 										th:errors="*{releaseDate}" class="badge badge-danger"></span>
 									<input type="date" class="form-control" id="textDate"
-										name="releaseDate" th:value="${movie.releaseDate}" required>
+										name="releaseDate" th:value="${movie.releaseDate}"
+										autocomplete="off" required>
 								</div>
 
 								<div class="form-group col-md-4">
@@ -62,13 +133,14 @@
 										th:if="${#fields.hasErrors('date')}" th:errors="*{date}"
 										class="badge badge-danger"></span> <input type="date"
 										class="form-control" id="txtDate" name="date"
-										th:value="${movie.date}" required>
+										th:value="${movie.date}" autocomplete="off" required>
 								</div>
 								<div class="form-group col-md-4">
 									<label class="col-form-label" for="time">Show Time</label> <span
 										th:if="${#fields.hasErrors('time')}" th:errors="*{time}"
 										class="badge badge-danger"></span> <input type="time"
-										class="form-control" id="time" name="time" required>
+										class="form-control" id="time" name="time" autocomplete="off"
+										required>
 								</div>
 
 								<div class="form-group col-md-4">
@@ -125,27 +197,33 @@
 									<span th:if="${#fields.hasErrors('price')}"
 										th:errors="*{price}" class="badge badge-danger"></span> <input
 										type="text" class="form-control" placeholder="" id="price"
-										name="price" th:value="${movie.price}" required>
+										name="price" th:value="${movie.price}" autocomplete="off"
+										required>
 								</div>
 								<div class="form-group col-md-4">
 									<label class="col-form-label" for="seats">Seats</label> <span
 										th:if="${#fields.hasErrors('seats')}" th:errors="*{seats}"
 										class="badge badge-danger"></span> <input type="text"
 										class="form-control" placeholder="" id="seats" name="seats"
-										th:value="${movie.seats}" required>
+										th:value="${movie.seats}" autocomplete="off" required>
 								</div>
 								<div class="form-group col-md-4">
 									<label class="col-form-label" for="duration">Duration(In
 										Minutes)</label> <span th:if="${#fields.hasErrors('duration')}"
 										th:errors="*{duration}" class="badge badge-danger"></span> <input
 										type="text" class="form-control" placeholder="" id="duration"
-										name="duration" th:value="${movie.duration}" required>
+										name="duration" th:value="${movie.duration}"
+										autocomplete="off" required>
 								</div>
 
 								<div class="form-group col-12">
-									<button type="submit" class="btn btn-success rounded"
-										style="float: right"
-										onclick="alert('Are you sure to Save this Movie?')">Save</button>
+									<input class="btn btn-success" style="float: right"
+										type="button" value="Save" onclick="openAlert();" />
+								</div>
+								<div id="container">
+									<div class="message">Do you really want to Save?</div>
+									<button class="yes btn btn-success" type="submit">Yes</button>
+									<button class="no btn btn-danger">No</button>
 								</div>
 							</div>
 						</form>

@@ -51,7 +51,7 @@
 			</ul>
 			<div sec:authorize="isAuthenticated()">
 				<span style="color: white">Hello, </span> <span
-					style="color: white; font-weight: bold; font-size: large;"
+					style="color: white; font-weight: bold; font-size: large;text-transform:capitalize;"
 					sec:authentication="principal.username"></span>&nbsp; <a
 					href="/logout">
 					<button class="btn btn-warning my-2 my-sm-0 rounded" type="submit">Logout</button>

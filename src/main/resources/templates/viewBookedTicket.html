@@ -3,6 +3,81 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/master-page}">
 <meta charset="UTF-8">
+<head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+	
+</script>
+<script type="text/javascript">
+	function openAlert(msg, gfg) {
+		var confirmBox = $("#container");
+
+		confirmBox.find(".message").text(msg);
+
+		confirmBox.find(".yes").unbind().click(function() {
+
+			confirmBox.hide();
+		});
+		confirmBox.find(".yes").click(gfg);
+
+		confirmBox.show();
+
+		confirmBox.find(".no").unbind().click(function() {
+			event.preventDefault();
+			confirmBox.hide();
+		});
+		confirmBox.find(".no").click(gfg);
+		confirmBox.show();
+	}
+</script>
+<style>
+body {
+	text-align: center;
+}
+
+#container {
+	display: none;
+	background-image: linear-gradient(to right, #33ACFF, #C3DBEB);
+	background-size: cover;
+	color: white;
+	position: fixed;
+	width: 500px;
+	border-radius: 5px;
+	left: 50%;
+	margin-left: -250px;
+	padding: 16px 8px 8px;
+	box-sizing: border-box;
+	background-size: cover;
+}
+
+#container .yes {
+	display: inline-block;
+	border-radius: 3px;
+	padding: 5px;
+	margin-right: 10px;
+	text-align: center;
+	width: 60px;
+	float: right;
+}
+
+#container .no {
+	display: inline-block;
+	border-radius: 5px;
+	padding: 5px;
+	margin-right: 10px;
+	text-align: center;
+	width: 60px;
+	float: right;
+}
+
+#container .message {
+	text-align: left;
+	padding: 10px 30px;
+	font-size: large;
+}
+</style>
+
+
 <title>Customers</title>
 </head>
 <body>
@@ -77,6 +152,18 @@
 								</div>
 							</div>
 						</div>
+						<div id="container">
+							<div class="message">Do you really want to cancel?</div>
+
+							<a
+								th:href="
+								@{/cancelTicket(customerId=${customer.customerId})}">
+								<input class="btn btn-success rounded yes" type="button"
+								value="Yes" />
+							</a>
+
+							<button class="no btn-danger">No</button>
+						</div>
 
 						<hr>
 						<div
@@ -95,16 +182,16 @@
 			</div>
 		</div>
 		<hr>
-		<h5 class="text-danger text-center d-block ">
-			<a th:if="${flag}"
-				th:href="@{/cancelTicket(customerId=${customer.customerId})}"><button
-					type="button" class="btn btn-danger btn-sm rounded"
-					onclick="alert('Are you sure to cancel this Ticket?')">Cancel</button></a>
 
-			<a th:if="${!flag}"><button type="button"
-					class="btn btn-danger btn-sm rounded">It's too late, Can't cancel
-					Now</button></a>
-		</h5>
+		<div class="col-12">
+			<a th:if="${flag}"> <input class="btn btn-danger rounded"
+				type="button" value="Cancel" onclick="openAlert();" />
+
+			</a> <a th:if="${!flag}"><button type="button"
+					class="btn btn-danger btn-sm rounded">It's too late, Can't
+					cancel Now</button></a>
+		</div>
+
 
 	</th:block>
 </body>

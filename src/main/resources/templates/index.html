@@ -16,19 +16,17 @@
 	<th:block layout:fragment="content" class="container-fluid">
 
 		<div class="row ">
-			<div class="col">
-				<div th:if="${param.logout}"
-					class="alert alert-danger alert-dismissible rounded float-right">
-					<a href="#" class="close" data-dismiss="alert" aria-label="close"
-						onclick="">&times;</a> <strong> You have been
-						successfully logged out!!</strong>
-				</div>
+			<div th:if="${param.logout}"
+				class="alert alert-danger alert-dismissible rounded float-right">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close"
+					onclick="">&times;</a> <strong> You have been successfully
+					logged out!!</strong>
+			</div>
 
-				<div th:if="${param.login}"
-					class="alert alert-success alert-dismissible rounded float-right">
-					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-					<strong> You have been successfully logged in!!</strong>
-				</div>
+			<div th:if="${param.login}"
+				class="alert alert-success alert-dismissible rounded float-right">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<strong> You have been successfully logged in!!</strong>
 			</div>
 		</div>
 		<div class="row">
